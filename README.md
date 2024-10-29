@@ -1,6 +1,6 @@
 # Ansible Exploration
 
-<img src="https://hostkey.ru/storage/11_art35-00_71461c24.jpg ">
+<img src="https://media.licdn.com/dms/image/C4E12AQH-ncehWDLWhg/article-cover_image-shrink_600_2000/0/1606543645930?e=2147483647&v=beta&t=muIQS2DaxM5r-nqhykMIqb3Jeg2WlNDVx8Ww8FRluH4" alt="Ansible Logo" height="200" width="400">
 Welcome to my **Ansible Exploration** repository! This repository documents my learning journey with Ansible, a powerful open-source automation tool used for configuration management, application deployment, and orchestration.
 
 ## Table of Contents
