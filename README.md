@@ -8,11 +8,8 @@ Welcome to my **Ansible Exploration** repository! This repository documents my l
 - [Overview](#overview)
 - [Why Ansible?](#why-ansible)
 - [Repository Structure](#repository-structure)
-- [Getting Started](#getting-started)
 - [Notes](#notes)
 - [Playbooks](#playbooks)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
