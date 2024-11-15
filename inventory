@@ -1,0 +1,19 @@
+#single host entry
+
+192.168.22.137
+192.168.23.144
+
+#groups host entry
+
+[webserver]
+192.168.22.138
+192.168.22.89
+192.168.43.88
+
+[dbserver]
+server{1..50}.lab.example.com
+
+#nested groups entry
+
+[websever]
+[dbserver]
