@@ -1,0 +1,15 @@
+---
+- name: Using Dictionary variable perform task
+  hosts: webserver
+  vars:
+    users:
+      user1:
+        name: sonam
+        home: /sonam
+  tasks:
+    - name: Create user
+      user:
+        name: "{{ users.user1.name }}"
+        home: "{{ users.user1.home }}"
+        state: present
+
