@@ -1,0 +1,11 @@
+---
+- name: tasks variable
+  hosts: all
+  tasks:
+    - name: add group
+      vars:
+        group: student
+      group:
+        name: "{{ group }}"
+        state: present
+

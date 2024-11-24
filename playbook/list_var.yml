@@ -1,0 +1,17 @@
+---
+- name: list of array variable
+  hosts: webserver
+  become: true
+  vars:
+    users:
+      - harry
+      - sarah
+  tasks:
+    - name: add multile user helpof list of variable array
+      user:
+       name: "{{ users [1] }}"
+       state: absent
+      register: user_output
+    - debug:
+       var: user_output 
+
