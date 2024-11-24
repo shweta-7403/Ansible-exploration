@@ -1,0 +1,12 @@
+---
+- name: Package install help of variable
+  hosts: webserver
+  become: true
+  vars:
+    pkg: tree
+  tasks:
+    - name: Call variable for performing task
+      yum:
+        name: "{{ pkg }}"
+        state: present
+
