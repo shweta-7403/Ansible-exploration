@@ -1,0 +1,37 @@
+---
+- name: Configure httpd service and web hosting
+  hosts: webserver
+  become: true
+  tasks:
+    - name: Adding user with password
+      ansible.builtin.user:
+        name: shweta
+        shell: /bin/bash
+        comment: admin user
+        home: /shweta
+        password: "{{ 'redhat' | password_hash('sha512') }}"
+        state: present
+
+    - name: Install httpd service
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: /home/ansible-master/index.html
+        dest: /var/www/html/
+        owner: shweta
+
+    - name: open port 80 in default zone
+      ansible.posix.firewalld:
+        port: 80/tcp
+        permanent: true
+        state: enabled
+
+
+    - name: Start httpd service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+
