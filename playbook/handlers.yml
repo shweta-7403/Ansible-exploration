@@ -1,0 +1,32 @@
+---
+- name: Install httpd and copy content in index.html and webhosting
+  hosts: all
+  become: true
+  tasks:
+    - name: Install pkg httpd
+      ansible.builtin.yum:
+       name: httpd
+       state: latest
+      notify:
+        - Copy Content
+        - Port enable
+        - Service start
+  handlers:
+    - name: Copy Content
+      ansible.builtin.copy:
+       src: /home/ansible-master/playbook/index.html
+       dest: /var/www/html/index.html
+
+    - name: Port enable
+      ansible.posix.firewalld:
+       port: 80/tcp
+       permanent: true
+       state: enabled
+       immediate: true
+
+    - name: Service start
+      ansible.builtin.service:
+       name: httpd
+       state: started
+
+
