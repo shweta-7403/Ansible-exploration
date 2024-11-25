@@ -1,0 +1,16 @@
+---
+- name: Add multiple user with the help of loop
+  hosts: webserver
+  become: true
+  vars:
+    items:
+      - aman
+      - raj
+      - karan
+  tasks:
+    - name: Using loop 
+      user:
+        name: '{{ item }}'
+        state: present
+      loop: '{{ items }}'
+
