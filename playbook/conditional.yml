@@ -1,0 +1,14 @@
+---
+- name: Using condition in playbook
+  hosts: webserver
+  become: true
+  tasks:
+  - name: Install pkg apache on debian
+    command:
+      apt-get install apache2 -y
+    when: ansible_os_family == "Debian"
+  - name: Install pkg httpd on redhat
+    command:
+      yum install httpd -y
+    when: ansible_os_family == "RedHat"
+
