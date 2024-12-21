@@ -1,0 +1,28 @@
+# fruits.j2
+The list pf fruits name is as follows:
+{% for item in fruits  %}
+
+{{ item }}
+
+{% endfor %}
+
+#jinja_conditional.yml
+
+---
+- name: Ansible jinja2 template with conditionals loop
+  hosts: webservers
+  vars:
+   fruits:
+    - mango
+    - apple
+    - grapes
+    - banana
+    - custard apple
+    - papaya
+  tasks:
+    - name: Using loop with jinja2 template
+      template:
+       src: /home/master-node/ansible/fruits.j2
+       dest: /home/student/fruits.txt
+...
+
