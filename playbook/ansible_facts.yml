@@ -1,0 +1,10 @@
+---                                                
+- name: Enter the entry in the /etc/hosts          
+  hosts: webservers                                
+  become: true                                     
+  tasks:                                           
+   - name: Append the IP address and hostname      
+     lineinfile:                                   
+      line: "{{ ansible_default_ipv4 ['address'] }} {{ ansible_fqdn }} {{ ansible_hostname }} "
+      dest: /etc/hosts                             
+...                     
