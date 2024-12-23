@@ -1,0 +1,9 @@
+---
+- name: gather facts
+  hosts: webservers
+  tasks:
+   - name: gather all facts for {{ inventory_hostname }}
+     debug:
+      var: ansible_facts
+...
+
