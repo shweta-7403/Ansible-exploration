@@ -1,0 +1,27 @@
+# create mkdir -p /etc/ansible/facta.d directory then create a httpd.facts file
+cat /etc/ansible/facts.d/httpd.fact
+[basic]
+package=httpd
+service=httpd
+state=started
+enabled=true
+
+--------------------------------------------------------
+# Now call the custom facts in palybook
+# ansible all -m setup -a "filter=ansible_local"
+---
+- name: install httpd
+  hosts: dev
+  become: true
+  tasks:
+   - name: Install,enable and start httpd
+     yum:
+      name: "{{ ansible_facts.ansible_local.httpd.basic.package }}"
+      state: latest
+   - name: Start and enable httpd
+     service:
+      name: "{{ ansible_facts.ansible_local.httpd.basic.service }}"
+      state: "{{ ansible_facts.ansible_local.httpd.basic.state }}"
+      enabled: "{{ ansible_facts.ansible_local.httpd.basic.enabled}}"
+...
+
