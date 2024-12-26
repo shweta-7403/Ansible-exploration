@@ -1,0 +1,61 @@
+Que: Install and configure Ansible on the control node server.example.com as follows:
+
+* Install the required packages
+
+* Create a static inventory file called /home/shweta/ansible/inventory as follows:
+-- nodea.example.com is a member of the london host group
+-- nodeb.example.com is a member of the paris host group
+-- nodec.example.com and noded.example.com are members of the europe host group
+-- nodee.example.com is a member of the australia host group
+-- The europe group is a member of the servers host group
+
+* Create a configuration file called ansible.cfg as follows:
+-- The host inventory file /home/shweta/ansible/inventory is defined
+-- The location of roles used in playbooks is defined as /home/shweta/ansible/roles
+
+Sol: Create directory
+   
+   mkdir -p /home/shweta/ansible
+
+Install package
+
+   yum install ansible -y
+   ansible --version
+---------------------------------------------------------------------------------------------
+Create static inventory
+
+   vi /home/shweta/ansible/inventory
+
+[london]
+nodea.example.com
+
+[paris]
+nodeb.example.com
+
+[europe]
+node[c:d].example.com
+
+[servers:children]
+europe
+
+:wq
+
+----------------------------------------------------------------------------------------------
+
+Create Configuration file 
+
+vi /home/shweta/ansible/ansible.cfg
+
+[defaults]
+inventory=inventory
+roles_path=/home/shweta/ansible/roles
+remote_user=shweta
+ask_pass=false
+
+[privilege_escalation]
+become=true
+become_method=sudo
+
+:wq
+
+ansible --version Verify the inventory or ansible.cfg path
