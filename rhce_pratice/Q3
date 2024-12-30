@@ -1,0 +1,34 @@
+Que: Create a playbook called packages.yml that:
+
+- Installs the php and mariadb packages on hosts in the dev, test, and prod host groups
+- Installs the RPM Development Tools package group on hosts in the dev host group
+- Updates all packages to the latest version on hosts in the dev host group
+
+Sol: vi packages.yml
+
+---
+- name: Package management
+  hosts: all
+  vars:
+   pkgs:
+    - php
+    - mariadb
+  tasks:
+   - name: Install the php and mariadb package
+     ansible.builtin.package:
+      name: "{{ item }}"
+      state: present
+     loop: "{{ pkgs }}"
+     when: inventory_hostname in groups['dev'] or inventory_hostname in groups['test'] or inventory_hostname in groups['prod']
+   - name: Install the RPM Development Tools package
+     ansible.builtin.package:
+      name: "@RPM Development tools"
+      state: present
+     when: inventory_hostname in groups['dev']
+
+   - name: Update all package
+     ansible.builtin.package:
+      name: "*"
+      state: latest
+     when: inventory_hostname in groups['dev']
+
