@@ -1,0 +1,47 @@
+Que: Create a playbook called balance.yml as follows:
+
+The playbook contains a play that runs on hosts in the balancers host group and uses the balancer
+role.
+  - This role configures a service to load balance web server requests between hosts in the webservers
+     host group.
+  - When implemented, browsing to hosts in the balancers host group (for example
+     http://node5.example.com ) should produce the following output:
+
+Welcome to node3.example.com on 192.168.10.z
+  - Reloading the browser should return output from the alternate web server:
+
+Welcome to node4.example.com on 192.168.10.a
+ * The playbook contains a play that runs on hosts in the webservers host group and uses the
+phpinfo role.
+When implemented, browsing to hosts in the webservers host group with the URL /hello.php
+should produce the following output:
+
+Hello PHP World from FQDN
+
+where FQDN is the fully qualified domain name of the host.
+
+For example, browsing to http://node3.example.com/hello.php, should produce the following
+output:
+  Hello PHP World from node3.example.com
+along with various details of the PHP configuration including the version of PHP that is installed.
+
+* Similarly, browsing to http://node4.example.com/hello.php, should produce the following output:
+   Hello PHP World from node4.example.com
+along with various details of the PHP configuration including the version of PHP that is installed.
+
+sol:
+
+vi balance.yml
+
+---
+- name: use role
+  hosts: all
+  tasks: []
+- name: playbook for balancer host group
+  hosts: balancer
+  roles:
+   - balancer
+- name: playbook for webeservers host group
+  hosts: webservers
+  roles:
+   - phpinfo
