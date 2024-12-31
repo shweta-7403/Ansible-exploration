@@ -7,6 +7,7 @@ Que: Create a role called apache in /home/admin/ansible/roles with the following
 /var/www/html/index.html with the following output:
  
 Welcome to HOSTNAME on IPADDRESS
+
 - where HOSTNAME is the fully qualified domain name of the managed node and IPADDRESS
 is the IP address of the managed node.
 - Create a playbook called httpd.yml that uses this role as follows:
