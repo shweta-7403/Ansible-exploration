@@ -1,0 +1,21 @@
+Que: Use Ansible Galaxy with a requirements file called /home/admin/ansible/roles/requirement.yml
+to download and install roles to
+/home/admin/ansible/roles from the following URLs:
+
+-- http://classroom.example.com/content/examfun.tar.gz
+The name of this role should be balancer
+
+-- http://classroom.example.com/content/examfun.tar.gz
+The name of this role should be phpinfo
+
+vi /home/shweta/ansible/roles/requirement.yml
+
+---
+- src: http://classroom.example.com/content/examfun.tar.gz
+  name: balancer
+- src: http://classroom.example.com/content/examfun.tar.gz
+  name: phpinfo
+
+:wq
+
+ansible-galaxy install -r roles/requirement.yml -p roles/
