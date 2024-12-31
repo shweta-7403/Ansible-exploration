@@ -1,0 +1,41 @@
+Que: Generate a hosts file:
+* Download an initial template file called hosts.j2 from
+http://classroom.example.com/content/hosts.j2 to /home/admin/ansible/. Complete the
+template so that it can be used to generate a file with a line for each inventory host in the same
+format as /etc/hosts
+* Create a playbook called gen_hosts.yml that uses this template to generate the file
+/etc/myhosts on hosts in the dev host group.
+* When completed, the file /etc/myhosts on hosts in the dev host group should have a line
+for each managed host:
+127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1
+localhost localhost.localdomain localhost6 localhost6.localdomain6192.168.10.x node1.example.com node1
+192.168.10.y node2.example.com node2
+192.168.10.z node3.example.com node3
+192.168.10.a node4.example.com node4
+192.168.10.b node5.example.com node5
+
+Sol: wget http://classroom.example.com/content/hosts.j2
+
+vi hosts.j2
+127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1
+localhost localhost.localdomain localhost6 localhost6.localdomain6192.168.10.x node1.example.com node1
+
+{% for x in groups['all'] %}
+
+{{ hostvars[x]['ansible_facts']['default_ipv']['address'] }} {{ hostvars[x]['ansible_facts']['fqdn'] }} {{ hostvars[x]['ansible_facts']['hostname'] }}
+
+{% endfor %}
+
+vi gen_hosts.yml
+
+---
+- name: use template
+  hosts: all
+  tasks:
+   - name: template use hosts.j2
+     ansible.builtin.template:
+      src: hosts.j2
+      dest: /etc/myhosts
+     when: inventory_hostname in groups['dev']
